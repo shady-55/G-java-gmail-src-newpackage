@@ -1,0 +1,31 @@
+package mesho;
+import java.util.Scanner;
+public class c {
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		int option,num1=40,num2=50;
+		do {
+			System.out.println("1.sum 2 numbers");
+			System.out.println("2.substract 2 numbers");
+			System.out.println("3.divide 2 numbers");
+			System.out.println("0.Exit");
+			option=input.nextInt();
+			switch(option) {
+			case 1:
+				System.out.println("the sum of two numbers is"+(num1+num2));
+				break;
+			case 2:
+				System.out.println("the substract of two numbers is"+(num1-num2));
+				break;
+			case 3:
+				System.out.println("the divide of two numbers is"+(num1/num2));
+				break;
+			case 0:
+				System.out.println("good bye");
+				break;
+			default:
+				System.out.println("erorr");
+				break;
+			}		
+		}while(option!=0);
+	
