@@ -1,0 +1,242 @@
+package Pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class HomePage {
+	
+	
+	By LogoutBtn=By.linkText("Logout");
+	FirefoxDriver driver;
+	
+	public HomePage(FirefoxDriver driver) {
+		this.driver = driver;
+		
+	}
+
+	public void logout() {
+		
+		driver.findElement(LogoutBtn).click();
+		
+		
+		
+		
+	}
+
+}
+
+
+
+
+package Pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class LoginPage {
+
+	FirefoxDriver driver;
+
+	By username = By.id("username");
+	By Password = By.id("password");
+	By Inpatient = By.id("Inpatient Ward");
+	By isolation=By.id("");
+	By loginBtn = By.id("loginButton");
+
+
+	public LoginPage(FirefoxDriver driver) {
+
+		
+		this.driver= driver;
+	}
+
+
+
+public void setUserName(String UserName) {
+
+		driver.findElement(username).sendKeys(UserName);
+
+
+	}
+
+
+
+	public void setPassword(String userPassword) {
+
+		driver.findElement(Password).sendKeys(userPassword);
+
+
+	}
+
+
+	public void selectInpatientLocation() {
+
+
+		driver.findElement(Inpatient).click();
+		}
+	public void login(String username,String password , String location) {
+		
+		setUserName(username);
+		setPassword(password);
+		setloction(location);
+		clickLogin();
+		
+	}
+		public void setloction(String location) {
+			
+		switch(location) {
+		case "Inpatient":
+			driver.findElement(Inpatient).click();
+			break;
+		case "isolation":
+			driver.findElement(isolation).click();
+			break;
+		
+		}
+	}
+
+	public void clickLogin() {
+
+
+		driver.findElement(loginBtn).click();
+
+
+	} 
+
+
+package shady;
+
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+
+
+public class driverConstructor {
+	
+	static FirefoxDriver driver;
+	
+	@BeforeTest
+	public void  setUp() {
+		
+		System.setProperty("webdriver.gecko.driver","C:\\Users\\NinjaZone\\Downloads\\New folder\\New folder\\geckodriver.exe");
+		driver = new FirefoxDriver();
+		
+
+
+	}
+	
+	
+	@AfterTest
+	public void teardown() {
+
+		driver.quit();
+
+
+
+	}
+
+	
+	
+	
+	
+	
+	
+	
+
+}
+
+
+package shady;
+
+import static org.testng.Assert.assertEquals;
+
+import org.testng.annotations.Test;
+
+import Pages.LoginPage;
+
+public class testLogin extends driverConstructor {
+	
+	
+	
+
+
+
+	@Test
+	public void testUserLogin() {
+		String baseUrl ="https://demo.openmrs.org/";
+		driver.get(baseUrl);
+
+		LoginPage Loginpage	= new LoginPage(driver);
+
+		Loginpage.setUserName("Admin");
+
+		Loginpage.setPassword("Admin123");
+
+		Loginpage.setloction("Inpatient");
+
+		Loginpage.clickLogin();
+
+		String Expextedtitle = "Home";
+
+		String Actualtitle	= driver.getTitle();
+
+		assertEquals(Actualtitle, Expextedtitle);
+
+
+
+	}
+
+
+
+}
+
+
+package shady;
+
+
+
+import static org.testng.Assert.assertEquals;
+
+import org.testng.annotations.Test;
+
+import Pages.HomePage;
+
+
+public class testLogout extends driverConstructor {
+
+	@Test
+	public void testuserLogout() {
+
+
+		HomePage homepage = new HomePage(driver);
+
+		homepage.logout();
+		
+		String Expextedtitle = "Login";
+
+		String Actualtitle	= driver.getTitle();
+
+		assertEquals(Actualtitle, Expextedtitle);
+
+
+
+
+	}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
